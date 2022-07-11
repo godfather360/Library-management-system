@@ -1,0 +1,18 @@
+{% extends "management/layout.html" %}
+{% load static %}
+{% block body %}
+
+<div style="margin-left: 150px; margin-right: 150px;">
+    <div style="margin: 20px; background-color: antiquewhite;">
+       <h1 style="text-align: center;">Top authors</h1>
+    </div>
+
+<div class="list-group" style="margin-left: 20px; margin-right: 20px;">
+
+     {% for author in author_list %}
+       
+        <a href="{% url 'book_author' author.id %}" class="list-group-item list-group-item-action list-group-item-info" > {{author}}</a>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

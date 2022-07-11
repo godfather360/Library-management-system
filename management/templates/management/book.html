@@ -1,0 +1,49 @@
+
+{% extends "management/layout.html" %}
+{% load static %}
+{% block body %}
+
+<main role="main" class="container" style="margin-top: 50px;">
+    <div class="row">
+        {% if book.available_copies %}
+            <div class="alert alert-success" role="alert" style="width: 100%;text-align: center;">
+                {{book.available_copies}} copies Available
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert" style="width: 100%;text-align: center;">
+                Not Available yet...
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-md-7 blog-main">
+  
+        <div class="blog-post">
+          <h2 class="blog-post-title">{{book.title}}</h2>
+          <p class="blog-post-meta">by <a href="{% url 'book_author' book.author.id %}">{{book.author}}</a></p>  
+          <div class="col-md-6"></div>       
+          <div class="col-md-6">
+            <ul class="col-md-3">
+                {% for i in genre %}
+                <li>{{i}}</li>
+                {% endfor %}
+            </ul>
+          </div>
+          <div style="white-space:pre-line;">
+            {{book.summary}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <img src="/media/{{book.pic}}" class="card-img" alt="...">
+      </div>
+    </div>
+    <div style="margin-top: 20px;">
+    <form action="{% url 'book' book.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary btn-lg">Request this book</button>
+    </form>
+  </div>
+</main>
+{% endblock %}
